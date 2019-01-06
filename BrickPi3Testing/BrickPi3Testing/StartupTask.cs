@@ -20,7 +20,8 @@ namespace BrickPi3Testing
 
             // Run methods
             //TestNXTUltrasonic().Wait();
-            TestNXTLightSensor().Wait();
+            //TestNXTLightSensor().Wait();
+            TestNXTTouchSensor().Wait();
 
             // Reset
             brick.reset_all();
