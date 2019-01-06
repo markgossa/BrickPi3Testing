@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace BrickPi3Testing
 {
-    public sealed class StartupTask : IBackgroundTask
+    public sealed partial class StartupTask : IBackgroundTask
     {
         //private BackgroundTaskDeferral deferral;
         private Brick brick = new Brick();
@@ -28,22 +28,10 @@ namespace BrickPi3Testing
             brick.InitSPI();
 
             // Run methods
-            TestNXTUS().Wait();
+            TestNXTUltrasonic().Wait();
 
             // Reset
             brick.reset_all();
-        }
-
-        private async Task TestNXTUS()
-        {
-            NXTUltraSonicSensor ultra = new NXTUltraSonicSensor(brick, BrickPortSensor.PORT_S4, UltraSonicMode.Centimeter, 50);
-            int count = 0;
-            while (count < 400)
-            {
-                Debug.WriteLine(string.Format($"NXT US, Distance: {ultra.ReadDistance()}"));
-                await Task.Delay(100);
-                count++;
-            }
         }
     }
 }
