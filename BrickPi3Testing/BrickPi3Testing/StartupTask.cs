@@ -1,30 +1,31 @@
 ﻿using Windows.ApplicationModel.Background;
 using BrickPi3;
-
-// The Background Application template is documented at http://go.microsoft.com/fwlink/?LinkID=533884&clcid=0x409
+using BrickPi3.Sensors;
+using BrickPi3.Models;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System;
 
 namespace BrickPi3Testing
 {
     public sealed partial class StartupTask : IBackgroundTask
     {
-        //private BackgroundTaskDeferral deferral;
-        private Brick brick = new Brick();
+        private BackgroundTaskDeferral Deferral { get; set; }
+        private readonly Brick Brick = new Brick();
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            // Ensure that application doesn't end prematurely
-            //deferral = taskInstance.GetDeferral();
+            Deferral = taskInstance.GetDeferral();
+            Brick.InitSPI();
 
-            // Initialize the brick
-            brick.InitSPI();
+            var touch = new NXTTouchSensor(Brick, BrickPortSensor.PORT_S1, 100);
+            touch.OnStateChanged += new EventHandler<NXTTouchSensorEventArgs>(OnCrash);
+        }
 
-            // Run methods
-            //TestNXTUltrasonic().Wait();
-            //TestNXTLightSensor().Wait();
-            TestNXTTouchSensor().Wait();
-
-            // Reset
-            brick.reset_all();
+        private void OnCrash(object sender, NXTTouchSensorEventArgs e)
+        {
+            if (e.IsPressed)
+                Debug.WriteLine("Crashed into something!");
         }
     }
 }

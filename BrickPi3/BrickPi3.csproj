@@ -111,6 +111,7 @@
     <Compile Include="Models\BrickPiInfo.cs" />
     <Compile Include="Models\BrickPiVoltage.cs" />
     <Compile Include="Models\Motors.cs" />
+    <Compile Include="Models\NXTTouchSensorEventArgs.cs" />
     <Compile Include="Models\Sensors.cs" />
     <Compile Include="Models\SPIMessages.cs" />
     <Compile Include="Movement\Motor.cs" />

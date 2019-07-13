@@ -18,7 +18,6 @@ using BrickPi3.Models;
 
 namespace BrickPi3.Sensors
 {
-    
 	/// <summary>
 	/// Interface for a sensor 
 	/// </summary>
@@ -28,33 +27,11 @@ namespace BrickPi3.Sensors
         /// Property to return the raw value of the sensor as an int
         /// </summary>
         int Value { get; }
-        /// <summary>
-        /// Property to return the raw value of the sensort as a string
-        /// </summary>
-        string ValueAsString { get; }
+
         /// <summary>
         /// To update sensors
         /// </summary>
         void UpdateSensor(object state);
-		/// <summary>
-		/// Reads the sensor value as a string.
-		/// </summary>
-		/// <returns>
-		/// The value as a string
-		/// </returns>
-        string ReadAsString();
-
-        /// <summary>
-        /// Reads the sensor values as a raw int value
-        /// </summary>
-        /// <returns>The value as a int</returns>
-        int ReadRaw();
-
-        /// <summary>
-        /// Gets the name of the sensor.
-        /// </summary>
-        /// <returns>The sensor name.</returns>
-		string GetSensorName();
 		
 		/// <summary>
 		/// Selects the next mode.
@@ -86,7 +63,6 @@ namespace BrickPi3.Sensors
     	{
         	get;
     	}
-        
 	}
 }
 

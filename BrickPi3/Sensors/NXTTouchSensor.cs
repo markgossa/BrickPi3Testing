@@ -21,7 +21,7 @@ using System.Threading;
 
 namespace BrickPi3.Sensors
 {
-    public sealed class NXTTouchSensor: INotifyPropertyChanged, ISensor
+    public sealed class NXTTouchSensor: ISensor
     {
         private Brick brick = null;
 
@@ -55,16 +55,18 @@ namespace BrickPi3.Sensors
                 timer = null;
             }
         }
-        private void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        //private void OnPropertyChanged(string name)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        //}
 
         /// <summary>
         /// To notify a property has changed. The minimum time can be set up
         /// with timeout property
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
+
+        public event EventHandler<NXTTouchSensorEventArgs> OnStateChanged;
 
         private int periodRefresh;
         /// <summary>
@@ -93,7 +95,13 @@ namespace BrickPi3.Sensors
                 if (value != this.value)
                 {
                     this.value = value;
-                    OnPropertyChanged(nameof(Value));
+                    //OnPropertyChanged(nameof(Value));
+                    var args = new NXTTouchSensorEventArgs()
+                    {
+                        IsPressed = this.IsPressed()
+                    };
+
+                    OnStateChanged(this, args);
                 }
             }
         }
@@ -101,18 +109,7 @@ namespace BrickPi3.Sensors
         /// <summary>
         /// Return the raw value  as a string of the sensor
         /// </summary>
-        public string ValueAsString
-        {
-            get { return ReadAsString(); }
-            internal set
-            {
-                if (valueAsString != value)
-                {
-                    valueAsString = value;
-                    OnPropertyChanged(nameof(ValueAsString));
-                }
-            }
-        }
+        
         /// <summary>
         /// Update the sensor and this will raised an event on the interface
         /// </summary>
@@ -121,25 +118,13 @@ namespace BrickPi3.Sensors
             var ret = ReadRaw();
             if(ret != int.MaxValue)
             Value = ret;
-            ValueAsString = ReadAsString();
+            //ValueAsString = ReadAsString();
         }
 
         /// <summary>
         /// Reads the sensor value as a string.
         /// </summary>
         /// <returns>The value as a string</returns>
-        public string ReadAsString()
-        {
-            string s = "";
-            if (IsPressed())
-            {
-                s = "Pressed";
-            }
-            else {
-                s = "Not pressed";
-            }
-            return s;
-        }
 
         /// <summary>
         /// Determines whether the touch sensor is pressed.
@@ -156,7 +141,7 @@ namespace BrickPi3.Sensors
         /// Reads the raw sensor value
         /// </summary>
         /// <returns>The raw.</returns>
-        public int ReadRaw(){
+        private int ReadRaw(){
             //return brick.BrickPi.Sensor[(int)Port].Value;
             try
             {
@@ -173,11 +158,6 @@ namespace BrickPi3.Sensors
         /// </summary>
         public BrickPortSensor Port
         { get; internal set; }
-
-        public string GetSensorName()
-        {
-            return "NXT Touch";
-        }
 
         public int NumberOfModes()
         {
