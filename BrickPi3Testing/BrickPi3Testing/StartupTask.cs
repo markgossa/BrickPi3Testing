@@ -1,31 +1,29 @@
 ﻿using Windows.ApplicationModel.Background;
 using BrickPi3;
-using BrickPi3.Sensors;
-using BrickPi3.Models;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using System;
+using BrickPi3.Movement;
+using BrickPi3TestingDependencies;
+using static BrickPi3TestingDependencies.Movement;
 
 namespace BrickPi3Testing
 {
     public sealed partial class StartupTask : IBackgroundTask
     {
         private BackgroundTaskDeferral Deferral { get; set; }
-        private readonly Brick Brick = new Brick();
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             Deferral = taskInstance.GetDeferral();
-            Brick.InitSPI();
+            
+            var brickConfiguration = new BrickConfiguration();
+            var movement = new Movement();
 
-            var touch = new NXTTouchSensor(Brick, BrickPortSensor.PORT_S1, 100);
-            touch.OnStateChanged += new EventHandler<NXTTouchSensorEventArgs>(OnCrash);
-        }
-
-        private void OnCrash(object sender, NXTTouchSensorEventArgs e)
-        {
-            if (e.IsPressed)
-                Debug.WriteLine("Crashed into something!");
+            Debug.WriteLine("Move forwards");
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            movement.Move(1000, 30, MoveDirection.Forward, brickConfiguration);
+            stopwatch.Stop();
+            Debug.WriteLine($"Stopped after {stopwatch.ElapsedMilliseconds}");
         }
     }
 }

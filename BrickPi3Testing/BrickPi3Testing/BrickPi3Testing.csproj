@@ -140,9 +140,16 @@
       <Project>{9991c078-18f5-4aa0-ae13-c0ad71a1ef03}</Project>
       <Name>BrickPi3</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BrickPi3TestingDependencies\BrickPi3TestingDependencies.csproj">
+      <Project>{dc326000-e0bc-4e11-ae08-1b559745b808}</Project>
+      <Name>BrickPi3TestingDependencies</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0' ">
     <VisualStudioVersion>15.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
