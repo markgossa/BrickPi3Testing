@@ -21,17 +21,6 @@ using System.Threading;
 
 namespace BrickPi3.Movement
 {
-
-    /// <summary>
-    /// Polarity of the motor
-    /// </summary>
-    public enum Polarity
-    {
-#pragma warning disable
-        Backward = -1, Forward = 1, OppositeDirection = 0
-#pragma warning restore
-    };
-
     /// <summary>
     /// This class contains a motor object and all needed functions and properties to pilot it
     /// </summary>
@@ -109,44 +98,6 @@ namespace BrickPi3.Movement
         {
             SetSpeed(speed);
             Start();
-        }
-
-        /// <summary>
-        /// Change the polatity of the motor
-        /// </summary>
-        /// <param name="polarity">Polarity of the motor, backward, forward or opposite</param>
-        public void SetPolarity(Polarity polarity)
-        {
-            try
-            {
-                var motorstatus = brick.get_motor_status((byte)Port);
-                switch (polarity)
-                {
-                    case Polarity.Backward:
-                        //if (brick.BrickPi.Motor[(int)Port].Speed > 0)
-                        //    brick.BrickPi.Motor[(int)Port].Speed = -brick.BrickPi.Motor[(int)Port].Speed;
-                        if (motorstatus.Speed > 0)
-                            brick.set_motor_power((byte)Port, -Speed);
-                        break;
-                    case Polarity.Forward:
-                        //if (brick.BrickPi.Motor[(int)Port].Speed < 0)
-                        //    brick.BrickPi.Motor[(int)Port].Speed = -brick.BrickPi.Motor[(int)Port].Speed;
-                        if (motorstatus.Speed < 0)
-                            brick.set_motor_power((byte)Port, -Speed);
-                        break;
-                    case Polarity.OppositeDirection:
-                        //brick.BrickPi.Motor[(int)Port].Speed = -brick.BrickPi.Motor[(int)Port].Speed;
-                        brick.set_motor_power((byte)Port, -Speed);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            catch (Exception)
-            {
-                //nothing
-            }
-           
         }
 
         /// <summary>

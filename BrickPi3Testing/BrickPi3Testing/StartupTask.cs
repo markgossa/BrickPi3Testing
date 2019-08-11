@@ -16,14 +16,14 @@ namespace BrickPi3Testing
             Deferral = taskInstance.GetDeferral();
             
             var brickConfiguration = new BrickConfiguration();
-            var movement = new Movement();
+            var movement = new Movement(brickConfiguration);
 
             Debug.WriteLine("Move forwards");
             var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            movement.Move(1000, 30, MoveDirection.Forward, brickConfiguration);
-            stopwatch.Stop();
+            movement.Move(1000, 30, MoveDirection.Forward, endMovement: false);
             Debug.WriteLine($"Stopped after {stopwatch.ElapsedMilliseconds}");
+
+            movement.Turn(duration: 4000, turnCircle: 0, speed: 30, endMovement: true);
         }
     }
 }
