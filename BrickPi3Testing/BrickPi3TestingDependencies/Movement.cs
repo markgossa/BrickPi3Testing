@@ -1,4 +1,4 @@
-﻿using System.Threading;
+﻿using System.Threading.Tasks;
 
 namespace BrickPi3TestingDependencies
 {
@@ -17,19 +17,27 @@ namespace BrickPi3TestingDependencies
                 ? -speed
                 : speed;
 
-            var rightMotorSpeed = speed;
-            var leftMotorSpeed = -speed;
+            var normalizedSpeeds = NormalizeSpeeds(speed);
 
-            brickConfiguration.RightMotor.SetSpeed(rightMotorSpeed);
-            brickConfiguration.LeftMotor.SetSpeed(leftMotorSpeed);
-            EndMovement(duration, endMovement);
+            brickConfiguration.RightMotor.SetSpeed(normalizedSpeeds.RightMotorSpeed);
+            brickConfiguration.LeftMotor.SetSpeed(normalizedSpeeds.LeftMotorSpeed);
+            EndOperation(duration, endMovement);
         }
 
-        private void EndMovement(int duration, bool endMovement)
+        private NormalizedSpeed NormalizeSpeeds(int speed)
+        {
+            return new NormalizedSpeed()
+            {
+                RightMotorSpeed = speed,
+                LeftMotorSpeed = -speed
+            };
+        }
+
+        private void EndOperation(int duration, bool endMovement)
         {
             if (endMovement && duration != -1)
             {
-                Thread.Sleep(duration);
+                Task.Delay(duration).Wait();
                 brickConfiguration.RightMotor.SetSpeed(0);
                 brickConfiguration.LeftMotor.SetSpeed(0);
             }
@@ -38,23 +46,18 @@ namespace BrickPi3TestingDependencies
         public void Turn(int duration, int turnCircle, int speed, 
             bool endMovement, TurnDirection direction = TurnDirection.Right)
         {
-            var rightMotorSpeed = speed;
-            var leftMotorSpeed = -speed;
+            var normalizedSpeeds = NormalizeSpeeds(speed);
 
             // turn right on the spot
-            brickConfiguration.RightMotor.SetSpeed(-rightMotorSpeed);
-            brickConfiguration.LeftMotor.SetSpeed(leftMotorSpeed);
-            EndMovement(duration, endMovement);
+            brickConfiguration.RightMotor.SetSpeed(-normalizedSpeeds.RightMotorSpeed);
+            brickConfiguration.LeftMotor.SetSpeed(normalizedSpeeds.LeftMotorSpeed);
+            EndOperation(duration, endMovement);
+        }
 
-            // turn right at same speed
-            //if (direction == TurnDirection.Right)
-            //{
-            //    brickConfiguration.RightMotor.SetSpeed(0);
-            //    brickConfiguration.LeftMotor.SetSpeed(0);
-            //    brickConfiguration.RightMotor.SetSpeed(speed + (turnCircle * 10));
-            //    brickConfiguration.LeftMotor.SetSpeed(-speed);
-            //    Task.Delay(duration).Wait();
-            //}
+        public void Stop()
+        {
+            brickConfiguration.LeftMotor.Stop();
+            brickConfiguration.RightMotor.Stop();
         }
 
         public void TurnAroundOnTheSpot(TurnDirection direction = TurnDirection.Right)

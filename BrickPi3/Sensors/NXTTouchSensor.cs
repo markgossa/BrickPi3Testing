@@ -16,7 +16,6 @@
 
 using BrickPi3.Models;
 using System;
-using System.ComponentModel;
 using System.Threading;
 
 namespace BrickPi3.Sensors
@@ -55,16 +54,11 @@ namespace BrickPi3.Sensors
                 timer = null;
             }
         }
-        //private void OnPropertyChanged(string name)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        //}
-
+        
         /// <summary>
         /// To notify a property has changed. The minimum time can be set up
         /// with timeout property
         /// </summary>
-        //public event PropertyChangedEventHandler PropertyChanged;
 
         public event EventHandler<NXTTouchSensorEventArgs> OnStateChanged;
 
@@ -82,7 +76,6 @@ namespace BrickPi3.Sensors
             }
         }
         private int value;
-        private string valueAsString;
 
         /// <summary>
         /// Return the raw value of the sensor

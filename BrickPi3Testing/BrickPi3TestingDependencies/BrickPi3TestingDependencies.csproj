@@ -122,6 +122,7 @@
   <ItemGroup>
     <Compile Include="BrickConfiguration.cs" />
     <Compile Include="Movement.cs" />
+    <Compile Include="NormalizedSpeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\BrickPi3TestingDependencies.rd.xml" />
   </ItemGroup>

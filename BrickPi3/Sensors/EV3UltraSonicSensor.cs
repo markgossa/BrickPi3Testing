@@ -236,10 +236,8 @@ namespace BrickPi3.Sensors
                     case UltraSonicMode.Centimeter:
                     case UltraSonicMode.Inch:
                         return (ret[0] + (ret[1] >> 8));
-                        break;
                     case UltraSonicMode.Listen:
                         return ret[0];
-                        break;
                 }
             }
             catch (Exception)
