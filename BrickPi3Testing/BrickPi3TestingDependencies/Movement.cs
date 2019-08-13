@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace BrickPi3TestingDependencies
 {
@@ -10,8 +11,8 @@ namespace BrickPi3TestingDependencies
             this.brickConfiguration = brickConfiguration;
         }
 
-        public void Move(int duration, int speed, MoveDirection moveDirection,
-            bool endMovement)
+        public void Move(int speed, MoveDirection moveDirection, int duration = -1, 
+            bool endMovement = false)
         {
             speed = moveDirection.Equals(MoveDirection.Backward)
                 ? -speed
@@ -43,14 +44,31 @@ namespace BrickPi3TestingDependencies
             }
         }
 
-        public void Turn(int duration, int turnCircle, int speed, 
-            bool endMovement, TurnDirection direction = TurnDirection.Right)
+        public void Turn(int speed, int sharpness, TurnDirection direction,
+            int duration = -1, bool endMovement = false)
         {
+            sharpness = sharpness < 0 ? 5 : sharpness;
+            sharpness = sharpness > 99 ? 99 : sharpness;
+
             var normalizedSpeeds = NormalizeSpeeds(speed);
 
-            // turn right on the spot
-            brickConfiguration.RightMotor.SetSpeed(-normalizedSpeeds.RightMotorSpeed);
-            brickConfiguration.LeftMotor.SetSpeed(normalizedSpeeds.LeftMotorSpeed);
+            if(direction == TurnDirection.Right)
+            {
+                int turnModifier = normalizedSpeeds.RightMotorSpeed * 2 * sharpness / 100;
+
+                int rightMotorSpeed = normalizedSpeeds.RightMotorSpeed - turnModifier;
+                int leftMotorSpeed = normalizedSpeeds.LeftMotorSpeed;
+
+                brickConfiguration.RightMotor.SetSpeed(rightMotorSpeed);
+                brickConfiguration.LeftMotor.SetSpeed(leftMotorSpeed);
+            }
+            else
+            {
+                int turnModifier = (100 - sharpness) / 100 * normalizedSpeeds.RightMotorSpeed * 2;
+                brickConfiguration.RightMotor.SetSpeed(normalizedSpeeds.RightMotorSpeed);
+                brickConfiguration.LeftMotor.SetSpeed(-normalizedSpeeds.LeftMotorSpeed + turnModifier);
+            }
+            
             EndOperation(duration, endMovement);
         }
 
@@ -62,7 +80,7 @@ namespace BrickPi3TestingDependencies
 
         public void TurnAroundOnTheSpot(TurnDirection direction = TurnDirection.Right)
         {
-            Turn(duration: 4000, turnCircle: 0, speed: 30, endMovement: true,
+            Turn(duration: 4000, sharpness: 0, speed: 30, endMovement: true,
                 direction: direction);
         }
 

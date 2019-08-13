@@ -1,6 +1,6 @@
 ﻿using Windows.ApplicationModel.Background;
-using System.Diagnostics;
 using BrickPi3TestingDependencies;
+using System.Threading.Tasks;
 
 namespace BrickPi3Testing
 {
@@ -14,10 +14,16 @@ namespace BrickPi3Testing
             
             var brickConfiguration = new BrickConfiguration();
             var movement = new Movement(brickConfiguration);
-            int speed = 15;
+            int speed = 30;
 
-            movement.Move(20000, speed, Movement.MoveDirection.Forward, endMovement: true);
-            movement.Turn(duration: 20000, turnCircle: 0, speed, endMovement: true);
+            //movement.Move(speed, Movement.MoveDirection.Forward);
+            //Task.Delay(1500 / 5).Wait();
+            movement.Turn(speed, 100, Movement.TurnDirection.Right, 2500, true);
+            movement.Turn(speed, 75, Movement.TurnDirection.Right, 2500, true);
+            movement.Turn(speed, 50, Movement.TurnDirection.Right, 2500, true);
+            movement.Turn(speed, 25, Movement.TurnDirection.Right, 2500, true);
+            movement.Turn(speed, 0, Movement.TurnDirection.Right, 2500, true);
+            movement.Stop();
         }
     }
 }
