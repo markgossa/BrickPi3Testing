@@ -2,9 +2,8 @@
 using BrickPi3.Models;
 using BrickPi3.Movement;
 using BrickPi3.Sensors;
-using System;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
 namespace BrickPi3Testing
@@ -33,8 +32,6 @@ namespace BrickPi3Testing
 
             Initialize();
             RegisterToEvents();
-
-            //_deferral.Complete();
         }
 
         private void Initialize()
@@ -44,20 +41,18 @@ namespace BrickPi3Testing
             _motor1 = new Motor(_brick, BrickPortMotor.PORT_B);
         }
 
-        private void RegisterToEvents() => _touchSensor.OnStateChanged += new EventHandler<NXTTouchSensorEventArgs>(OnTouchSensorChange);
+        private void RegisterToEvents() => _touchSensor.PropertyChanged += new PropertyChangedEventHandler(OnTouchSensorChange);
 
-        private void OnTouchSensorChange(object sender, NXTTouchSensorEventArgs args)
+
+        private void OnTouchSensorChange(object sender, PropertyChangedEventArgs args)
         {
-            if (args.IsPressed)
+            var isPressed = _touchSensor.IsPressed();
+            if (isPressed)
             {
-                _motor1.SetSpeed(20);
+                Debug.WriteLine($"Touch sensor: {isPressed}");
+                Debug.WriteLine("Shutting down...");
+                _deferral.Complete();
             }
-            else
-            {
-                _motor1.Stop();
-            }
-
-            Debug.WriteLine($"Touch sensor: {args.IsPressed}");
         }
     }
 }

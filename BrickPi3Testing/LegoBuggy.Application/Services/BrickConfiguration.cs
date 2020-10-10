@@ -2,13 +2,13 @@
 using BrickPi3.Models;
 using BrickPi3.Movement;
 
-namespace BrickPi3TestingDependencies
+namespace LegoBuggy.Application.Services
 {
     public class BrickConfiguration
     {
         private readonly Brick brick = new Brick();
         public Motor LeftMotor { get; set; }
-        public Motor RightMotor{ get; set; }
+        public Motor RightMotor { get; set; }
 
         public BrickConfiguration()
         {

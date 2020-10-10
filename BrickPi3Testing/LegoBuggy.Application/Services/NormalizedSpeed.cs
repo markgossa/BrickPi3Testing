@@ -1,4 +1,4 @@
-﻿namespace BrickPi3TestingDependencies
+﻿namespace LegoBuggy.Application.Services
 {
     internal class NormalizedSpeed
     {
