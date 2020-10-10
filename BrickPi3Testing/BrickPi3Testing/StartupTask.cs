@@ -1,29 +1,63 @@
-﻿using Windows.ApplicationModel.Background;
-using BrickPi3TestingDependencies;
+﻿using BrickPi3;
+using BrickPi3.Models;
+using BrickPi3.Movement;
+using BrickPi3.Sensors;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
 
 namespace BrickPi3Testing
 {
-    public sealed partial class StartupTask : IBackgroundTask
+    public sealed class StartupTask : IBackgroundTask
     {
-        private BackgroundTaskDeferral Deferral { get; set; }
+        private BackgroundTaskDeferral _deferral;
+        private readonly Brick _brick = new Brick();
+        private NXTTouchSensor _touchSensor;
+        private Motor _motor1;
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-            Deferral = taskInstance.GetDeferral();
-            
-            var brickConfiguration = new BrickConfiguration();
-            var movement = new Movement(brickConfiguration);
-            int speed = 30;
+            _deferral = taskInstance.GetDeferral();
 
-            //movement.Move(speed, Movement.MoveDirection.Forward);
-            //Task.Delay(1500 / 5).Wait();
-            movement.Turn(speed, 100, Movement.TurnDirection.Right, 2500, true);
-            movement.Turn(speed, 75, Movement.TurnDirection.Right, 2500, true);
-            movement.Turn(speed, 50, Movement.TurnDirection.Right, 2500, true);
-            movement.Turn(speed, 25, Movement.TurnDirection.Right, 2500, true);
-            movement.Turn(speed, 0, Movement.TurnDirection.Right, 2500, true);
-            movement.Stop();
+            //var brickConfiguration = new BrickConfiguration();
+            //var movement = new Movement(brickConfiguration);
+            //int speed = 30;
+
+            //movement.Turn(speed, 100, Movement.TurnDirection.Right, 2500, true);
+            //movement.Turn(speed, 75, Movement.TurnDirection.Right, 2500, true);
+            //movement.Turn(speed, 50, Movement.TurnDirection.Right, 2500, true);
+            //movement.Turn(speed, 25, Movement.TurnDirection.Right, 2500, true);
+            //movement.Turn(speed, 0, Movement.TurnDirection.Right, 2500, true);
+            //movement.Stop();
+
+            Initialize();
+            RegisterToEvents();
+
+            //_deferral.Complete();
+        }
+
+        private void Initialize()
+        {
+            _brick.InitSPI();
+            _touchSensor = new NXTTouchSensor(_brick, BrickPortSensor.PORT_S2);
+            _motor1 = new Motor(_brick, BrickPortMotor.PORT_B);
+        }
+
+        private void RegisterToEvents() => _touchSensor.OnStateChanged += new EventHandler<NXTTouchSensorEventArgs>(OnTouchSensorChange);
+
+        private void OnTouchSensorChange(object sender, NXTTouchSensorEventArgs args)
+        {
+            if (args.IsPressed)
+            {
+                _motor1.SetSpeed(20);
+            }
+            else
+            {
+                _motor1.Stop();
+            }
+
+            Debug.WriteLine($"Touch sensor: {args.IsPressed}");
         }
     }
 }

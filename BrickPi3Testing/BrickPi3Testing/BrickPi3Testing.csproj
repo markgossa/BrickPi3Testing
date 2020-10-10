@@ -95,9 +95,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Methods\TestNXTLightSensor.cs" />
-    <Compile Include="Methods\TestNXTTouchSensor.cs" />
-    <Compile Include="Methods\TestNXTUltrasonic.cs" />
     <Compile Include="StartupTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
