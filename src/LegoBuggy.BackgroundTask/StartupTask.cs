@@ -18,18 +18,6 @@ namespace BrickPi3Testing
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             _deferral = taskInstance.GetDeferral();
-
-            //var brickConfiguration = new BrickConfiguration();
-            //var movement = new Movement(brickConfiguration);
-            //int speed = 30;
-
-            //movement.Turn(speed, 100, Movement.TurnDirection.Right, 2500, true);
-            //movement.Turn(speed, 75, Movement.TurnDirection.Right, 2500, true);
-            //movement.Turn(speed, 50, Movement.TurnDirection.Right, 2500, true);
-            //movement.Turn(speed, 25, Movement.TurnDirection.Right, 2500, true);
-            //movement.Turn(speed, 0, Movement.TurnDirection.Right, 2500, true);
-            //movement.Stop();
-
             Initialize();
             RegisterToEvents();
         }
