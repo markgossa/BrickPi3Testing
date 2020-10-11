@@ -122,6 +122,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BrickConfiguration.cs" />
+    <Compile Include="Services\DriveService.cs" />
+    <Compile Include="Services\IMovement.cs" />
     <Compile Include="Services\Movement.cs" />
     <Compile Include="Services\NormalizedSpeed.cs" />
     <EmbeddedResource Include="Properties\LegoBuggy.Application.rd.xml" />
@@ -136,6 +138,9 @@
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

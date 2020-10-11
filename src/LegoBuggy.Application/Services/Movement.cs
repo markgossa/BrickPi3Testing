@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace LegoBuggy.Application.Services
 {
-    public class Movement
+    public class Movement : IMovement
     {
         private readonly Motor _leftMotor;
         private readonly Motor _rightMotor;
 
         public Movement(Brick brick)
         {
-            _leftMotor = new Motor(brick, BrickPortMotor.PORT_A);
-            _rightMotor = new Motor(brick, BrickPortMotor.PORT_B);
+            _leftMotor = new Motor(brick, BrickPortMotor.PORT_B);
+            _rightMotor = new Motor(brick, BrickPortMotor.PORT_A);
         }
 
         public void Move(int speed, MoveDirection moveDirection, int duration = -1,
@@ -28,25 +28,6 @@ namespace LegoBuggy.Application.Services
             _rightMotor.SetSpeed(normalizedSpeeds.RightMotorSpeed);
             _leftMotor.SetSpeed(normalizedSpeeds.LeftMotorSpeed);
             EndOperation(duration, endMovement);
-        }
-
-        private NormalizedSpeed NormalizeSpeeds(int speed)
-        {
-            return new NormalizedSpeed()
-            {
-                RightMotorSpeed = speed,
-                LeftMotorSpeed = -speed
-            };
-        }
-
-        private void EndOperation(int duration, bool endMovement)
-        {
-            if (endMovement && duration != -1)
-            {
-                Task.Delay(duration).Wait();
-                _rightMotor.SetSpeed(0);
-                _leftMotor.SetSpeed(0);
-            }
         }
 
         public void Turn(int speed, int sharpness, TurnDirection direction,
@@ -99,6 +80,25 @@ namespace LegoBuggy.Application.Services
         {
             Forward,
             Backward
+        }
+
+        private NormalizedSpeed NormalizeSpeeds(int speed)
+        {
+            return new NormalizedSpeed()
+            {
+                RightMotorSpeed = speed,
+                LeftMotorSpeed = -speed
+            };
+        }
+
+        private void EndOperation(int duration, bool endMovement)
+        {
+            if (endMovement && duration != -1)
+            {
+                Task.Delay(duration).Wait();
+                _rightMotor.SetSpeed(0);
+                _leftMotor.SetSpeed(0);
+            }
         }
     }
 }
