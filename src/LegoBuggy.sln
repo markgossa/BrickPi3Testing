@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegoBuggy.Application", "LegoBuggy.Application\LegoBuggy.Application.csproj", "{E8A69A26-B132-4A4D-A3D9-7A4C95480A6C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RaspberryPiApp", "RaspberryPiApp", "{14261BD3-26F8-45DD-89E3-E6ACDEA6C68F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegoBuggy.BackgroundTask", "LegoBuggy.BackgroundTask\LegoBuggy.BackgroundTask.csproj", "{142B6C65-0C4F-4355-9E58-FE3E8E59289E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegoBuggy.Application", "RaspberryPiApp\LegoBuggy.Application\LegoBuggy.Application.csproj", "{E8A69A26-B132-4A4D-A3D9-7A4C95480A6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegoBuggy.BackgroundTask", "RaspberryPiApp\LegoBuggy.BackgroundTask\LegoBuggy.BackgroundTask.csproj", "{142B6C65-0C4F-4355-9E58-FE3E8E59289E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{57FFC826-4680-469E-A412-A7394D486C38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +70,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E8A69A26-B132-4A4D-A3D9-7A4C95480A6C} = {14261BD3-26F8-45DD-89E3-E6ACDEA6C68F}
+		{142B6C65-0C4F-4355-9E58-FE3E8E59289E} = {14261BD3-26F8-45DD-89E3-E6ACDEA6C68F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4109CE1B-7A67-40B0-B608-DB4440315144}
