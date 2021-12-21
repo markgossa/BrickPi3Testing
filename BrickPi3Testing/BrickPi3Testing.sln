@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrickPi3Testing", "BrickPi3Testing\BrickPi3Testing.csproj", "{142B6C65-0C4F-4355-9E58-FE3E8E59289E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrickPi3", "..\BrickPi3\BrickPi3.csproj", "{9991C078-18F5-4AA0-AE13-C0AD71A1EF03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrickPi3Testing2", "BrickPi3Testing2\BrickPi3Testing2.csproj", "{851A1732-E6EB-4D64-9009-CFF00496F47D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,22 @@ Global
 		{9991C078-18F5-4AA0-AE13-C0AD71A1EF03}.Release|x64.Build.0 = Release|x64
 		{9991C078-18F5-4AA0-AE13-C0AD71A1EF03}.Release|x86.ActiveCfg = Release|x86
 		{9991C078-18F5-4AA0-AE13-C0AD71A1EF03}.Release|x86.Build.0 = Release|x86
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Debug|ARM.Build.0 = Debug|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Debug|x64.Build.0 = Debug|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Debug|x86.Build.0 = Debug|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Release|ARM.Build.0 = Release|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Release|x64.ActiveCfg = Release|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Release|x64.Build.0 = Release|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Release|x86.ActiveCfg = Release|Any CPU
+		{851A1732-E6EB-4D64-9009-CFF00496F47D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

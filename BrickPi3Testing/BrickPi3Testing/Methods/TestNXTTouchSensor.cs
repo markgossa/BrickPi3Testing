@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Windows.ApplicationModel.Background;
+﻿using BrickPi3.Models;
 using BrickPi3.Sensors;
-using BrickPi3.Models;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
 
 namespace BrickPi3Testing
 {
@@ -10,13 +10,12 @@ namespace BrickPi3Testing
     {
         private async Task TestNXTTouchSensor()
         {
-            NXTTouchSensor touch = new NXTTouchSensor(brick, BrickPortSensor.PORT_S1);
-            int count = 0;
-            while (count < 400)
+            var touch = new NXTTouchSensor(brick, BrickPortSensor.PORT_S2);
+
+            while (true)
             {
                 Debug.WriteLine(string.Format($"NXT Touch sensor: {touch.IsPressed()}"));
                 await Task.Delay(100);
-                count++;
             }
         }
     }
